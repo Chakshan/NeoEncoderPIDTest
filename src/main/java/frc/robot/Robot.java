@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax neo;
   private CANEncoder neo_encoder;
   private CANPIDController neo_pidController;
-  
+
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
 
   private Joystick m_joystick;
@@ -76,23 +76,6 @@ public class Robot extends TimedRobot {
     neo_pidController.setFF(kFF);
     neo_pidController.setOutputRange(kMinOutput, kMaxOutput);
 
-    /**
-     * Smart Motion coefficients are set on a CANPIDController object
-     * 
-     * - setSmartMotionMaxVelocity() will limit the velocity in RPM of the pid controller in Smart Motion mode
-     * 
-     * - setSmartMotionMinOutputVelocity() will put a lower bound in RPM of the pid controller in Smart Motion mode
-     * 
-     * - setSmartMotionMaxAccel() will limit the acceleration in RPM^2 of the pid controller in Smart Motion mode
-     * 
-     * - setSmartMotionAllowedClosedLoopError() will set the max allowed error for the pid controller in Smart Motion mode
-     */
-
-    int smartMotionSlot = 0;
-    neo_pidController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
-    neo_pidController.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
-    neo_pidController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
-    neo_pidController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
     // display PID coefficients on SmartDashboard
     SmartDashboard.putNumber("P Gain", kP);
